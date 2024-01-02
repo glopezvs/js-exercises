@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*  var myRequest = new XMLHttpRequest();
+                                myRequest.open("GET", "https://dog.ceo/api/breeds/list/all");
+                                myRequest.send();*/
+
+      /*var myRequest = new XMLHttpRequest();
+
+                                myRequest.open("GET", "https://api.jikan.moe/v4/top/anime");
+                                myRequest.responseType = "json";
+
+                                myRequest.onload = () => {
+                                  console.log(myRequest.response.data[0].producers[1]);
+                                };
+                                myRequest.send();*/
+
+      /*///////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+      /*  async function anoAnime(year) {
+        const promise = new Promise((resolve, reject) => {
+          var myRequest = new XMLHttpRequest();
+          myRequest.open("GET", "https://api.jikan.moe/v4/top/anime");
+          myRequest.responseType = "json";
+
+          myRequest.onload = function () {
+            resolve(myRequest.response.data);
+          };
+
+          myRequest.onerror = function () {
+            reject("erro");
+          };
+          myRequest.send();
+        });
+
+        try {
+          const result = await promise;
+          var filtrarAnimes = result.filter((anos) => anos.year === year);
+          if (filtrarAnimes.length != 0) {
+            console.log(filtrarAnimes);
+          } else {
+            console.log(`O ano de ${year} não tem conteúdos`);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      anoAnime(2022);*/
+
+      //////////////////////FETCH////////////////////////////////////////
+
+      async function anoAnime(year) {
+        const promise = new Promise((resolve, reject) => {
+          fetch("https://cat-fact.herokuapp.com/facts/")
+            .then((response) => response.json())
+            .then((resolve) => {
+              console.log("Data from API:", resolve);
+            })
+            .catch((reject) => {
+              console.error("Failed to fetch data:", error);
+            });
+        });
+        try {
+          const result = await promise;
+          var filtrarAnimes = result.filter((anos) => anos.year === year);
+          if (filtrarAnimes != 0) {
+            console.log(filtrarAnimes);
+          } else {
+            console.log(`O ano de ${year} não tem conteúdos`);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      anoAnime(2022);
+    </script>
+  </body>
+</html>

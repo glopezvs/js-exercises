@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //Cria uma ligação à api https://cat-fact.herokuapp.com/facts/ com os 2 métodos que falamos: XMLHTTPRequest e fetch;
+
+      var myRequest = new XMLHttpRequest();
+      myRequest.open("GET", "https://cat-fact.herokuapp.com/facts/");
+      myRequest.responseType = "json";
+      myRequest.onload = function () {
+        const data = JSON.parse(myRequest.response);
+        console.log("Data from API:", data);
+      };
+      myRequest.onerror = function () {
+        console.error("Failed to fetch data:");
+      };
+      myRequest.send();
+
+      fetch("https://cat-fact.herokuapp.com/facts/")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Data from API:", data);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch data:", error);
+        });
+
+      // Façam a resolução da ligação à API com uma promise, e façam resolve com o que é obtido pela API.
+
+      async function myPromise() {
+        return new Promise(function (resolve, reject) {
+          var myRequest = new XMLHttpRequest();
+          myRequest.open("GET", "https://cat-fact.herokuapp.com/facts/");
+          myRequest.responseType = "json";
+          myRequest.onload = function () {
+            console.log("Data from API:", myRequest.response);
+          };
+          myRequest.onerror = function () {
+            console.error("Failed to fetch data:");
+          };
+          myRequest.send();
+        });
+
+        try {
+          const result = await myPromise();
+          console.log(resolve);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      myPromise();
+
+      // Façam uma função que faça console.log de todas as frases que estão na propriedade text
+
+      function frases() {
+        fetch("https://cat-fact.herokuapp.com/facts/")
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => data.forEach(({ text }) => console.log(text)))
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      frases();
+
+      function frases2() {
+        return new Promise(function (resolve, reject) {
+          var myRequest = new XMLHttpRequest();
+          myRequest.open("GET", "https://cat-fact.herokuapp.com/facts/");
+          myRequest.responseType = "json";
+          myRequest.onload = function () {
+            const data = myRequest.response;
+            data.forEach(({ text }) => console.log(text));
+          };
+          myRequest.onerror = function () {
+            console.error("Failed to fetch data:");
+          };
+          myRequest.send();
+        });
+      }
+      frases2();
+    </script>
+  </body>
+</html>
