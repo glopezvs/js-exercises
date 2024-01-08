@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <button type="button">Elementos</button>
+    <p id="teste">Teste</p>
+    <button type="button">Primeiro</button>
+    <div class="container">
+      <h1><time>00:00:00</time></h1>
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+      <button id="reset">Reset</button>
+    </div> !-->
+  </body>
+
+  <script>
+    // Faz console.log de todos os button.
+
+    const exemplos = document.getElementsByTagName("button");
+    console.log(exemplos);
+
+    // Faz console.log dos button que fazem parte da div com a class container.
+
+    const exemplos2 = document.querySelectorAll(".container button");
+    console.log(exemplos2);
+
+    // Faz console.log do p com o id teste.
+
+    const exemplos3 = document.getElementById("p#teste");
+    console.log(exemplos3);
+
+    // Cria uma div e adiciona ao body.
+    var div = document.createElement("div");
+    document.body.prepend(div);
+
+    // Adiciona à div anteriormente criada o seguinte texto: Isto é apenas para um exercício.
+    const texto = document.createTextNode("Isto é apenas para um exercício");
+    div.prepend(texto);
+    //ou
+    div.append("Isto é apenas para um exercício");
+    // Adiciona ao fim da div anteriormente criada o seguinte texto: muito difícil
+    const texto2 = document.createTextNode("muito difícil");
+    div.append(texto2);
+
+    //Adiciona à deic criada um atributo chamado arial-label com o valor teste-teste.
+    const atributo = document.createAttribute("arial-label");
+    atributo.value = "teste-test";
+    div.setAttributeNode(atributo);
+    //ou
+    div.setAttribute("arial-label", "teste-teste");
+  </script>
+</html>

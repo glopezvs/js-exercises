@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body onload="console.log('boas')">
+    <!--<input type="checkbox" onchange="" />
+    <form action="" onreset="" onsubmit="">
+      <button>submit</button>
+      <button>reset</button>
+    </form>
+    <div>
+      <button
+        id="btn"
+        onmouseover="changeColor()"
+        onmouseout="changeColorBack()"
+      >
+        submit
+      </button>
+    </div>
+    <input
+      type="text"
+      name=""
+      id="texto"
+      onfocus="focar()"
+      onblur="desfocar()"
+    />!-->
+
+    <button>Button 1</button>
+    <button>Button 2</button>
+  </body>
+
+  <script>
+    /*  function changeColor() {
+                  const button = document.getElementById("btn");
+                  button.style.backgroundColor = "red";
+                }
+                function changeColorBack() {
+                  const button = document.getElementById("btn");
+                  button.style.backgroundColor = "grey";
+                }
+                function focar() {
+                  const focar = document.getElementById("texto");
+                  focar.style.background = "yellow";
+                }
+                function desfocar() {
+                  const desfocar = document.getElementById("texto");
+                  desfocar.style.background = "white";
+                }*/
+
+    setTimeout(function () {
+      buttons[0].setAttribute("id", "teste");
+    }, 1000);
+
+    const buttons = document.getElementsByTagName("button");
+
+    buttons[0].addEventListener("mouseover", () => console.log("mouseover"));
+    buttons[0].addEventListener("mouseout", () => console.log("mouseout"));
+    buttons[1].addEventListener("mouseover", () => console.log("mouseover"));
+    buttons[1].addEventListener("mouseout", () => console.log("mouseover"));
+
+    //ou
+    // nao funciona porque nao está a ler o array dos botoes
+    buttons.forEach((button) => {
+      button.addEventListener("mouseover", () => {});
+    });
+
+    // cria um evento onload na tag body;
+    /* Cria um formulário com:
+            1 campo de texto com um evento
+            onchange;
+            - um botão de submit;
+            - um botão de reset;
+            - adiciona o event onsubmit ao formulário;
+            - adiciona o event onreset ao formulário;*/
+
+    // Cria um botão com o evento mouseover e mouseout; Estes eventos devem chamar cada um uma função (um event handler);
+    // Cria um input de tipo texto e adiciona os eventos onfocus e onblur. Estes eventos devem chamar cada um uma função (um event handler).
+    /*
+            - Adiciona a ambos os botões event listeners para mouseover e mouseout;.
+            - Adiciona um setTimeout que adicione um id ao primeiro botão adicionado no primeiro passo do exercício;*/
+  </script>
+</html>

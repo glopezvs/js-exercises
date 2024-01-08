@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>bnt 1</button>
+    <button>bnt 1</button>
+  </body>
+
+  <script>
+    const addEvent = (event) => {
+      console.log(event);
+
+      switch (event.type) {
+        case "click":
+          event.target.setAttribute("class", "clicked");
+          break;
+        case "mouseover":
+          event.target.setAttribute("class", "hover");
+          break;
+      }
+    };
+    const buttons = document.getElementsByTagName("button");
+    buttons[0].addEventListener("click", addEvent);
+    buttons[0].addEventListener("mouseover", addEvent);
+    buttons[1].addEventListener("click", addEvent);
+    buttons[1].addEventListener("mouseover", addEvent);
+
+    /*const btn1 = document.createElement("button");
+    btn1.append("mekie");
+    document.body.append(btn1);
+    btn1.addEventListener("click", addEvent);
+
+    const btn2 = document.createElement("button");
+    document.body.append(btn1);
+    btn1.addEventListener("mouseover", addEvent);*/
+
+    /* Cria uma função chamada captureEvent que
+    faça console.log do objecto evento.
+    - Cria 2 botões e, com o addEventListener,
+    adicionas 2 eventos diferentes que chamem a
+    função acima criada.
+    - Na função acima, adiciona os seguintes
+    cenários:
+    - Se o type do evento for click, altera para a
+    class clicked;
+    - Se o type fo evento for mouseover, altera
+    para a class hover*/
+  </script>
+</html>
