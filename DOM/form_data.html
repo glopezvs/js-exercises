@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="forms" action="">
+      <div>
+        <label for="nome">nome:</label>
+        <input id="nome" type="text" name="nome" />
+      </div>
+      <div>
+        <label for="email">email:</label>
+        <input id="email" type="email" name="email" />
+      </div>
+      <div>
+        <input type="button" id="submit" value="send" />
+        <!-- ou posso por <input type="submit"value="send" />
+-->
+      </div>
+    </form>
+  </body>
+  <script>
+    const form = document.querySelector("#forms");
+    const btn = document.querySelector("#submit");
+
+    btn.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+
+      const nome = formData.get("nome");
+      const email = formData.get("email");
+      console.log("nome:", nome);
+      console.log("email:", email);
+    });
+
+    /* outra maneira de fazer
+
+        const form2 = document.querySelector("#meuForm");
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const formData = new FormData(event.target);
+    
+          const nome = formData.get("nome");
+          const email = formData.get("email");
+          console.log("Nome:", nome);
+          console.log("Email:", email);
+        });
+    */
+    /*  const submitForm = (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+
+        console.log(formData.get("nome"));
+        console.log(formData.get("email"));
+      };
+
+      const contactForm = document.getElementById("contactForm");
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", submitForm);
+      contactForm.addEventListener("submit", submitForm);*/
+
+    /* cria um formulário de contacto com os
+                    seguintes campos: nome, email e mensagem.
+                    - Ao enviar o formulário, utilize o objeto FormData
+                    para obter os valores dos campos e exibi-los na
+                    consola*/
+  </script>
+</html>

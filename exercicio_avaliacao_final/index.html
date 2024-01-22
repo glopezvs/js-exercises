@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>e-commerce</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body></body>
+
+  <script>
+    fetch("https://fakestoreapi.com/products")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Data from API:", data);
+        grid(data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch data:", error);
+      });
+
+    const productGrid = document.createElement("div");
+    document.body.prepend(productGrid);
+    productGrid.setAttribute("class", "prodGrid");
+
+    const grid = (gridInfo) => {
+      gridInfo.forEach((element) => {
+        const product = document.createElement("div");
+        productGrid.appendChild(product);
+        product.setAttribute("class", "prodWrapper");
+
+        const name = document.createElement("p");
+        product.appendChild(name);
+        name.textContent = element.title;
+
+        const imgWrapper = document.createElement("div");
+        product.appendChild(imgWrapper);
+        imgWrapper.setAttribute("class", "imgWrapper");
+
+        const image = document.createElement("img");
+        imgWrapper.appendChild(image);
+        image.src = element.image;
+
+        const btnAdd = document.createElement("button");
+        product.appendChild(btnAdd);
+        btnAdd.textContent = "Add to Cart";
+      });
+    };
+  </script>
+</html>

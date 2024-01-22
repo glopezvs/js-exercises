@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    const div = document.createElement("div");
+    document.body.prepend(div);
+
+    div.insertAdjacentHTML(
+      "afterbegin",
+      "<ul><li>Exemplo 01</li><li>Exemplo02</li></ul><p>isto é uma div</p>"
+    );
+
+    const lista = document.querySelector("li:nth-child(1)");
+    lista.insertAdjacentHTML("afterend", "<li>Exemplo Extra</li>");
+
+    setTimeout(function () {
+      const wrapper = document.querySelector("div");
+      const removerP = document.querySelector("p");
+      wrapper.removeChild(removerP);
+    }, 2000);
+
+    /*Cria uma div dinamicamente, e usando as 
+  funções anteriores, adiciona o seguinte código:
+  <ul>
+  <li>Exemplo 01</li>
+  <li>Exemplo02</li>
+  </ul>
+  <p>isto é uma div</p>
+  - Adiciona um <li> entre os 2 existentes.
+  - Remove da DOM o <p>.*/
+  </script>
+</html>

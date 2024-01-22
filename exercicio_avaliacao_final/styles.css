@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.prodGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+p {
+  font-size: 1em;
+  padding: 10px;
+}
+.prodWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imgWrapper {
+  width: 150px;
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.prodWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

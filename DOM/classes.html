@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    class Carro {
+      constructor(marca, modelo) {
+        this.marca = marca;
+        this.modelo = modelo;
+      }
+      display() {
+        return `Este é um: ${this.marca} ${this.modelo}`;
+      }
+    }
+
+    const audi = new Carro("audi", "A4");
+    console.log(audi.display());
+    const opel = new Carro("opel", "astra");
+    console.log(opel.display());
+
+    class Suv extends Carro {
+      constructor(marca, modelo, anos) {
+        super(marca, modelo);
+        this.anos = anos;
+      }
+      ano() {
+        return `${super.display()} ${this.anos}`;
+      }
+    }
+
+    const suv = new Suv("jeep", "renegade", "2022");
+    console.log(suv.ano());
+  </script>
+</html>

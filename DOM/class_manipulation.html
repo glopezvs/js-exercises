@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    /* Cria dinamicamente um span e adiciona uma classe com as funções dadas anteriormente.
+            - Se esse span for clickado, alterar para outra class;
+            - Criar um button dinamicamente e adicionar uma classe
+            quando for disparado o evento mouseover.
+            Em mouseout deve remover essa class*/
+
+    const createSpan = document.createElement("span");
+    document.body.prepend(createSpan);
+    createSpan.innerHTML = "ola";
+
+    createSpan.classList.add("click");
+
+    createSpan.addEventListener("click", () => {
+      createSpan.classList.remove("click");
+      createSpan.classList.toggle("hoover");
+    });
+
+    const createButton = document.createElement("button");
+    createButton.innerHTML = "button!";
+    document.body.append(createButton);
+
+    createButton.addEventListener("mouseover", () => {
+      createButton.classList.toggle("mo", " ");
+    });
+
+    //// ou
+
+    const toggleClass = () => createButton.classList.toggle("exemplo");
+
+    createButton.addEventListener("mouseover", toggleClass);
+    createButton.addEventListener("mouseout", toggleClass);
+  </script>
+</html>

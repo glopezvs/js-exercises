@@ -32,7 +32,7 @@ const companies = [
 
     // Faz console.log da soma se somar todas os valores do array ages usando reduce;
 
-    const sum =  ages. reduce((accumulator, currentValue) => accumulator + currentValue);
+    const sum =  ages.reduce((accumulator, currentValue) => accumulator + currentValue);
     console.log(sum);
 
     // Faz console.log de um novo objeto que tenha as propriedades de name e category iguais a companies[0], usando o destructuring de objects.

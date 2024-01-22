@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class Ecommerce {
+        constructor(price, name, id) {
+          this.productList = [];
+        }
+        addProduct(product) {
+          this.productList.push(product);
+          console.log(`Produto "${product.name}" adicionado à lista.`);
+        }
+        setProductPrice(productId, price) {}
+      }
+      const necommerce = new Ecommerce();
+
+      const prod = {
+        name: "Produto 1",
+        price: 29.99,
+        id: 1,
+      };
+      necommerce.addProduct(prod);
+    </script>
+  </body>
+</html>

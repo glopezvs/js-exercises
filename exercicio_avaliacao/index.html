@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body></body>
+
+  <script>
+    async function scoreAnime(score) {
+      const promise = new Promise((resolve, reject) => {
+        var myRequest = new XMLHttpRequest();
+        myRequest.open("GET", "https://api.jikan.moe/v4/top/anime");
+        myRequest.responseType = "json";
+
+        myRequest.onload = function () {
+          resolve(myRequest.response.data);
+        };
+
+        myRequest.onerror = function () {
+          reject("erro");
+        };
+        myRequest.send();
+      });
+
+      try {
+        const result = await promise;
+        var filtrarScore = result.filter((rating) => rating.score >= score);
+        if (filtrarScore.length != 0) {
+          console.log(filtrarScore);
+          grid(filtrarScore);
+        } else {
+          console.log(`Não existem animes com score superior a ${score}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    scoreAnime(9);
+
+    const wrapper = document.createElement("div");
+    wrapper.setAttribute("class", "wrapper");
+    document.body.prepend(wrapper);
+
+    const grid = (gridInfo) => {
+      gridInfo.forEach((openDiv) => {
+        const infoWrapper = document.createElement("div");
+        infoWrapper.setAttribute("class", "info--wrapper");
+
+        const p = document.createElement("p");
+        p.textContent = openDiv.title;
+
+        const img = document.createElement("img");
+        img.setAttribute("class", "img--wrapper");
+        img.setAttribute("title", "imagem");
+        img.src = openDiv.images.jpg.image_url;
+
+        infoWrapper.appendChild(p);
+        infoWrapper.appendChild(img);
+        wrapper.appendChild(infoWrapper);
+
+        img.addEventListener("click", () => {
+          openImg(openDiv);
+        });
+      });
+    };
+
+    const openImg = (infoAnime) => {
+      const imgClicked = document.createElement("div");
+      imgClicked.setAttribute("class", "bg");
+      document.body.prepend(imgClicked);
+
+      const pWrapper = document.createElement("div");
+      pWrapper.setAttribute("class", "pWrapper");
+      imgClicked.appendChild(pWrapper);
+
+      const title = document.createElement("p");
+      title.innerHTML = "<b>Title: </b>" + infoAnime.title;
+      pWrapper.appendChild(title);
+
+      const score = document.createElement("p");
+      score.innerHTML = "<b>Score: </b>" + infoAnime.score;
+      pWrapper.appendChild(score);
+
+      const rating = document.createElement("p");
+      rating.innerHTML = "<b>Ratings: </b>" + infoAnime.rating;
+      pWrapper.appendChild(rating);
+
+      const aired = document.createElement("p");
+      const { day, month, year } = infoAnime.aired.prop.from;
+      aired.innerHTML = `<b>Aired: </b>${day}/${month}/${year}`;
+      pWrapper.appendChild(aired);
+
+      const genre = document.createElement("p");
+      genre.innerHTML = genre.innerHTML =
+        "<b>Genre: </b>" +
+        infoAnime.genres.map((genre) => genre.name).join(", ");
+      pWrapper.appendChild(genre);
+
+      const biggerPic = document.createElement("img");
+      biggerPic.setAttribute("class", "bigger--pic");
+      biggerPic.src = infoAnime.images.jpg.large_image_url;
+      imgClicked.appendChild(biggerPic);
+
+      imgClicked.addEventListener("click", () => {
+        imgClicked.remove();
+      });
+    };
+
+    const footer = document.createElement("div");
+    footer.setAttribute("class", "footer");
+    document.body.append(footer);
+
+    const date = document.createElement("p");
+    footer.appendChild(date);
+    date.textContent = new Date() + " \u00A9 " + " Gabriela Lopez";
+  </script>
+</html>
