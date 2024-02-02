@@ -8,23 +8,107 @@
   <body>
     <script>
       class Ecommerce {
-        constructor(price, name, id) {
+        constructor() {
           this.productList = [];
+          this.productCart = [];
         }
-        addProduct(product) {
+
+        addProduct(name, price, id) {
+          const product = { name, price, id };
           this.productList.push(product);
           console.log(`Produto "${product.name}" adicionado à lista.`);
         }
-        setProductPrice(productId, price) {}
-      }
-      const necommerce = new Ecommerce();
 
-      const prod = {
-        name: "Produto 1",
-        price: 29.99,
-        id: 1,
-      };
-      necommerce.addProduct(prod);
+        setProductPrice(productId, price) {
+          const product = this.getProductById(productId);
+          if (product) {
+            product.price = price;
+            console.log(
+              `Preço do produto com ID ${productId} atualizado para ${price}.`
+            );
+          } else {
+            console.error(`Produto com ID ${productId} não encontrado.`);
+          }
+        }
+
+        getAllProducts() {
+          return this.productList;
+        }
+
+        getAllProductsNames() {
+          const productNames = this.productList.map((product) => product.name);
+          return productNames.join("; ");
+        }
+        getProductById(id) {
+          return this.productList.find((product) => product.id === id);
+        }
+        getProductByName(name) {
+          return this.productList.find((product) => product.name === name);
+        }
+        getProductsByPrice(initialPrice, finalPrice) {
+          return this.productList.filter(
+            (product) =>
+              product.price >= initialPrice && product.price <= finalPrice
+          );
+        }
+
+        addProductToCart(product) {
+          this.productCart.push(product);
+          console.log(`Produto "${product.name}" foi adicionado ao carrinho.`);
+        }
+
+        getCart() {
+          return this.productCart;
+        }
+
+        getCartTotalPrice() {
+          return this.productCart.reduce(
+            (total, product) => total + product.price,
+            0
+          );
+        }
+      }
+
+      const newEcommerce = new Ecommerce();
+
+      newEcommerce.addProduct("Produto 1", 30.0, 1);
+      newEcommerce.addProduct("Produto 2", 15.0, 2);
+
+      newEcommerce.setProductPrice(1, 39.99);
+
+      const allProductNames = newEcommerce.getAllProductsNames();
+      console.log(allProductNames);
+
+      // ver todos os prod
+      const allProducts = newEcommerce.getAllProducts();
+      console.log(allProducts);
+
+      // ver prods pelo id
+      const productById = newEcommerce.getProductById(1);
+      console.log(productById);
+
+      // ver prods pelo nome
+      const productByName = newEcommerce.getProductByName("Produto 2");
+      console.log(productByName);
+
+      // ver prods pelo preço
+      const productsPrices = newEcommerce.getProductsByPrice(23, 30);
+      console.log(productsPrices);
+
+      // adicionar prod ao carro
+      const productInCart = newEcommerce.getProductById(1);
+      newEcommerce.addProductToCart(productInCart);
+
+      const productInCart2 = newEcommerce.getProductById(2);
+      newEcommerce.addProductToCart(productInCart2);
+
+      // prod do carrinho
+      const allCart = newEcommerce.getCart();
+      console.log(allCart);
+
+      // total do carrinho
+      const sumCart = newEcommerce.getCartTotalPrice();
+      console.log(sumCart);
     </script>
   </body>
 </html>

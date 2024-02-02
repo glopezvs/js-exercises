@@ -44,7 +44,42 @@
         const btnAdd = document.createElement("button");
         product.appendChild(btnAdd);
         btnAdd.textContent = "Add to Cart";
+        btnAdd.addEventListener("click", () => addToCart(product));
       });
     };
+
+    function addToCart(product) {
+      const cartData = {
+        userId: 1, // Replace with the appropriate user ID
+        date: getCurrentDate(),
+        products: [
+          {
+            productId: product.id,
+            quantity: 1, // You can adjust the quantity as needed
+          },
+        ],
+      };
+
+      fetch("https://fakestoreapi.com/carts/7", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartData),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log("Produto adicionado ao carrinho:", data))
+        .catch((error) =>
+          console.error("Erro ao adicionar produto ao carrinho:", error)
+        );
+    }
+
+    function getCurrentDate() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
   </script>
 </html>

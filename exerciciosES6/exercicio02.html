@@ -38,10 +38,10 @@
           myRequest.open("GET", "https://cat-fact.herokuapp.com/facts/");
           myRequest.responseType = "json";
           myRequest.onload = function () {
-            console.log("Data from API:", myRequest.response);
+            resolve(myRequest.response);
           };
           myRequest.onerror = function () {
-            console.error("Failed to fetch data:");
+            reject("Failed to fetch data:");
           };
           myRequest.send();
         });
