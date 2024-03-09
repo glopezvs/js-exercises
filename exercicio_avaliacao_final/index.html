@@ -9,78 +9,97 @@
   <body></body>
 
   <script>
-    fetch("https://fakestoreapi.com/products")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Data from API:", data);
-        grid(data);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch data:", error);
-      });
+    const fetchAPI = async () => {
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        const data = await response.json();
+        productGrid(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
-    const productGrid = document.createElement("div");
-    document.body.prepend(productGrid);
-    productGrid.setAttribute("class", "prodGrid");
+    const productGrid = (gridInfo) => {
+      const productList = document.createElement("div");
+      productList.classList.add("prodGrid");
+      document.body.prepend(productList);
 
-    const grid = (gridInfo) => {
       gridInfo.forEach((element) => {
         const product = document.createElement("div");
-        productGrid.appendChild(product);
-        product.setAttribute("class", "prodWrapper");
-
-        const name = document.createElement("p");
-        product.appendChild(name);
-        name.textContent = element.title;
-
-        const imgWrapper = document.createElement("div");
-        product.appendChild(imgWrapper);
-        imgWrapper.setAttribute("class", "imgWrapper");
-
-        const image = document.createElement("img");
-        imgWrapper.appendChild(image);
-        image.src = element.image;
-
-        const btnAdd = document.createElement("button");
-        product.appendChild(btnAdd);
-        btnAdd.textContent = "Add to Cart";
-        btnAdd.addEventListener("click", () => addToCart(product));
+        product.classList.add("prodWrapper");
+        product.innerHTML = `
+                <p>${element.title}</p>
+              <div class="imgWrapper">
+              <img src="${element.image}">
+              </div>
+            <button onclick="addToCart(${element.id})">Add to Cart</button>
+          `;
+        productList.appendChild(product);
       });
     };
-    /* 
 
-    function addToCart(product) {
-      const cartData = {
+    const addToCart = async (prodId) => {
+      const dataCart = {
         userId: 1,
         date: getCurrentDate(),
         products: [
           {
-            productId: product.id,
-            quantity: 1, 
+            prodId: prodId,
+            quantity: 1,
           },
         ],
       };
 
-      fetch("https://fakestoreapi.com/carts/7", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cartData),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log("Produto adicionado ao carrinho:", data))
-        .catch((error) =>
-          console.error("Erro ao adicionar produto ao carrinho:", error)
-        );
-    }
+      try {
+        const response = await fetch("https://fakestoreapi.com/carts/7", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataCart),
+        });
+        const data = await response.json();
+        console.log("Product added", data);
+      } catch (error) {
+        console.error("Error adding product:", error);
+      }
+    };
 
-    function getCurrentDate() {
+    const getCurrentDate = () => {
       const today = new Date();
+      const day = today.getDate();
+      const month = today.getMonth() + 1;
       const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, "0");
-      const day = String(today.getDate()).padStart(2, "0");
+
       return `${year}-${month}-${day}`;
-    }*/
+    };
+    fetchAPI();
   </script>
 </html>
+
+<!-- versão menos concisa e comprida, it works but too much code
+
+const grid = (gridInfo) => {
+  gridInfo.forEach((element) => {
+    productGrid.appendChild(product);
+
+    const name = document.createElement("p");
+    product.appendChild(name);
+    name.textContent = element.title;
+
+    const imgWrapper = document.createElement("div");
+    product.appendChild(imgWrapper);
+    imgWrapper.setAttribute("class", "imgWrapper");
+
+    const image = document.createElement("img");
+    imgWrapper.appendChild(image);
+    image.src = element.image;
+
+    const btnAdd = document.createElement("button");
+    product.appendChild(btnAdd);
+    btnAdd.textContent = "Add to Cart";
+    btnAdd.addEventListener("click", () => addToCart(product));
+  });
+};
+
+!-->

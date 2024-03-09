@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produtos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script>
+      const input = () => {
+        const inputWrapper = document.createElement("div");
+        inputWrapper.classList.add("inputWrapper");
+        document.body.append(inputWrapper);
+
+        const label = document.createElement("label");
+        label.setAttribute("for", "productId");
+        label.textContent = "Introduza o ID do Produto (1-20): ";
+        inputWrapper.appendChild(label);
+
+        const input = document.createElement("input");
+        input.setAttribute("type", "number");
+        input.setAttribute("id", "productId");
+        input.setAttribute("min", "1");
+        input.setAttribute("max", "20");
+        inputWrapper.appendChild(input);
+
+        const button = document.createElement("button");
+        button.textContent = "Update";
+        button.addEventListener("click", updateProduct);
+        inputWrapper.appendChild(button);
+      };
+
+      const fetchProduct = async (id) => {
+        try {
+          const response = await fetch(
+            `https://fakestoreapi.com/products/${id}`
+          );
+          const data = await response.json();
+
+          const existingProduct = document.querySelector(".product");
+          if (existingProduct) {
+            existingProduct.remove();
+          }
+
+          const mainProduct = document.createElement("div");
+          mainProduct.classList.add("related-products");
+          document.body.append(mainProduct);
+
+          mainProduct.innerHTML = `
+                  <div class = "product">
+                      <h2>${data.title}</h2>
+                      <p>Preço: $${data.price}</p>
+                      <p>Descrição: ${data.description}</p>
+                      <p>Categoria: ${data.category}</p>
+                      <p>Avaliação: ${data.rating.rate} (${data.rating.count} avaliações)</p>
+                      <img src="${data.image}" alt="${data.title}">
+                  </div>
+                `;
+
+          fetchRelatedProducts(data.category, id);
+        } catch (error) {
+          console.error("Erro ao obter produto:", error);
+        }
+      };
+
+      const fetchRelatedProducts = async (category, mainProductId) => {
+        try {
+          const existingProduct = document.querySelector(".related-wrapper");
+          if (existingProduct) {
+            existingProduct.remove();
+          }
+
+          const response = await fetch(
+            `https://fakestoreapi.com/products/category/${category}`
+          );
+          const data = await response.json();
+
+          const relatedProductsWrapper = document.createElement("div");
+          relatedProductsWrapper.classList.add("related-wrapper");
+          document.body.append(relatedProductsWrapper);
+
+          const title = document.createElement("p");
+          title.classList.add("title");
+          title.innerHTML = "Related Products";
+          relatedProductsWrapper.appendChild(title);
+
+          const relatedProducts = document.createElement("div");
+          relatedProducts.classList.add("related-products");
+          relatedProductsWrapper.appendChild(relatedProducts);
+
+          const footer = document.createElement("p");
+          footer.classList.add("title");
+          const currentYear = new Date().getFullYear();
+          footer.innerHTML = `&copy ${currentYear}`;
+          relatedProductsWrapper.appendChild(footer);
+
+          data
+            .filter((product) => product.id !== mainProductId)
+            .slice(0, 3)
+            .forEach((product) => {
+              const productElement = document.createElement("div");
+              productElement.classList.add("product");
+              productElement.innerHTML = `
+                            <h3>${product.title}</h3>
+                            <p>Preço: $${product.price}</p>
+                            <img src="${product.image}" alt="${product.title}">
+                        `;
+              relatedProducts.appendChild(productElement);
+            });
+        } catch (error) {
+          console.error("Erro ao obter produtos similares:", error);
+        }
+      };
+
+      function updateProduct() {
+        const productIdInput = document.getElementById("productId");
+        const productId = parseInt(productIdInput.value);
+        if (productId >= 1 && productId <= 20) {
+          fetchProduct(productId);
+        } else {
+          alert("Por favor escolher um ID entre 1 e 20!");
+        }
+      }
+
+      const updateCopyrightYear = () => {};
+
+      input();
+      fetchProduct(1);
+      updateCopyrightYear();
+    </script>
+  </body>
+</html>
